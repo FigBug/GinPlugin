@@ -77,7 +77,7 @@ set_property (DIRECTORY "${CMAKE_CURRENT_LIST_DIR}/modules/juce" APPEND PROPERTY
 
 # Gin modules
 
-foreach(module_name IN ITEMS gin gin_dsp gin_graphics gin_gui gin_metadata gin_network gin_plugin gin_webp)
+foreach(module_name IN ITEMS gin gin_dsp gin_simd gin_graphics gin_gui gin_metadata gin_network gin_plugin gin_webp)
 	juce_add_module (
 		"${CMAKE_CURRENT_LIST_DIR}/modules/gin/modules/${module_name}"
 		)
@@ -114,6 +114,7 @@ source_group (TREE ${CMAKE_CURRENT_SOURCE_DIR}/plugin PREFIX Source FILES ${sour
 target_link_libraries (${PLUGIN_NAME} PRIVATE
 						gin
 						gin_dsp
+						gin_simd
 						gin_graphics
 						gin_gui
 						gin_plugin
@@ -138,7 +139,6 @@ target_link_libraries (${PLUGIN_NAME} PRIVATE
 juce_generate_juce_header (${PLUGIN_NAME})
 
 target_compile_definitions (${PLUGIN_NAME} PRIVATE
-								JUCE_DISPLAY_SPLASH_SCREEN=0
 								JUCE_COREGRAPHICS_DRAW_ASYNC=1
 								JUCE_MODAL_LOOPS_PERMITTED=0
 								JUCE_WEB_BROWSER=0
